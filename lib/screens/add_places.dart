@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddPlaces extends StatefulWidget {
+class AddPlaces extends ConsumerStatefulWidget {
   const AddPlaces({super.key});
 
-  @override
-  State<AddPlaces> createState() => _AddPlacesState();
+  ConsumerState<AddPlaces> createState() => _AddPlacesState();
 }
 
-class _AddPlacesState extends State<AddPlaces> {
-  final _titleController= TextEditingController();
+class _AddPlacesState extends ConsumerState<AddPlaces> {
+  final _titleController = TextEditingController();
+
+  void _savePlaces() {
+    final enteredText = _titleController.text;
+
+    if (enteredText.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("email is not correct"),
+            actions: [
+              
+            ],
+          );
+        },
+      );
+      return;
+    }
+  }
 
   @override
   void dispose() {
@@ -27,20 +46,21 @@ class _AddPlacesState extends State<AddPlaces> {
         child: Column(
           children: [
             TextField(
-              decoration:const  InputDecoration(
+              decoration: const InputDecoration(
                 label: Text("Title"),
               ),
               controller: _titleController,
+              style:
+                  TextStyle(color: Theme.of(context).colorScheme.onBackground),
             ),
-
-            const SizedBox(height: 16,),
-
-            ElevatedButton.icon(onPressed: () {
-              
-            },
-            icon: const Icon(Icons.add),
-             label: const Text("Add Place"),),
-
+            const SizedBox(
+              height: 16,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text("Add Place"),
+            ),
           ],
         ),
       ),
