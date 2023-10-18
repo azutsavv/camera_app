@@ -1,3 +1,4 @@
+import 'package:camera_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,22 +12,15 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
   final _titleController = TextEditingController();
 
   void _savePlaces() {
-    final enteredText = _titleController.text;
+    final enteredTitle = _titleController.text;
 
-    if (enteredText.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Text("email is not correct"),
-            actions: [
-              
-            ],
-          );
-        },
-      );
+    if (enteredTitle.isEmpty) {
       return;
     }
+
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle);
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -57,7 +51,7 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
               height: 16,
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: _savePlaces,
               icon: const Icon(Icons.add),
               label: const Text("Add Place"),
             ),

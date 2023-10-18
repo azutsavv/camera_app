@@ -1,21 +1,17 @@
 import 'package:camera_app/main.dart';
-import 'package:camera_app/models/places.dart';
+import 'package:camera_app/provider/user_provider.dart';
 import 'package:camera_app/screens/add_places.dart';
 import 'package:camera_app/widget/places_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class places extends StatefulWidget {
+class places extends ConsumerWidget {
   const places({super.key});
 
   @override
-  State<places> createState() => _placesState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userplaces = ref.watch(userPlacesProvider);
 
-final List<new_Places> _places = [];
-
-class _placesState extends State<places> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -35,6 +31,7 @@ class _placesState extends State<places> {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: PlacesList(places: _places));
+        body: PlacesList(places: userplaces));
   }
 }
+
