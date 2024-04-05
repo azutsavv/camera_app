@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:camera_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:camera_app/widget/image_input.dart';
 class AddPlaces extends ConsumerStatefulWidget {
   const AddPlaces({super.key});
 
@@ -10,15 +12,16 @@ class AddPlaces extends ConsumerStatefulWidget {
 
 class _AddPlacesState extends ConsumerState<AddPlaces> {
   final _titleController = TextEditingController();
+  File? _selectedimage;
 
   void _savePlaces() {
     final enteredTitle = _titleController.text;
 
-    if (enteredTitle.isEmpty) {
+    if (enteredTitle.isEmpty || _selectedimage == null) {
       return;
     }
 
-    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle);
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle, _selectedimage!);
 
     Navigator.of(context).pop();
   }
@@ -49,6 +52,16 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
             ),
             const SizedBox(
               height: 16,
+            ),
+
+            ImageInput(onpickimage: (image) {
+             _selectedimage = image;  
+            },
+
+            ),
+
+            const SizedBox(
+              height: 20,
             ),
             ElevatedButton.icon(
               onPressed: _savePlaces,
