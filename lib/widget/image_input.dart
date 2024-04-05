@@ -58,7 +58,7 @@ class _ImageInputState extends State<ImageInput> {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           width: 1,
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
           ),
 
       ),

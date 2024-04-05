@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera_app/provider/user_provider.dart';
+import 'package:camera_app/widget/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camera_app/widget/image_input.dart';
@@ -59,6 +60,11 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
             },
 
             ),
+            const SizedBox(
+              height: 20,
+            ),
+
+            LocationInput(),
 
             const SizedBox(
               height: 20,
