@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class userPlacesNotifire extends StateNotifier<List<Place>> {
   userPlacesNotifire() : super(const []);
 
-  void addPlace(String title, File image) {
+  void addPlace(String title, File image, PlacesLocation location) {
     final newPlace = Place(
+    location: location,
     title: title,
     image: image,
     );

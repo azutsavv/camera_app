@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:camera_app/models/places.dart';
 import 'package:camera_app/provider/user_provider.dart';
 import 'package:camera_app/widget/location_input.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ class AddPlaces extends ConsumerStatefulWidget {
 class _AddPlacesState extends ConsumerState<AddPlaces> {
   final _titleController = TextEditingController();
   File? _selectedimage;
+  PlacesLocation? _selectedLocation;
 
   void _savePlaces() {
     final enteredTitle = _titleController.text;
@@ -22,7 +23,8 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
       return;
     }
 
-    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle, _selectedimage!);
+    ref.read(userPlacesProvider.notifier)
+     .addPlace(enteredTitle, _selectedimage!, _selectedLocation!);
 
     Navigator.of(context).pop();
   }
@@ -64,7 +66,9 @@ class _AddPlacesState extends ConsumerState<AddPlaces> {
               height: 20,
             ),
 
-            LocationInput(),
+            LocationInput( onselectlocation: (location) {
+              _selectedLocation = location;
+            },),
 
             const SizedBox(
               height: 20,
